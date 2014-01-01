@@ -126,12 +126,12 @@ i.scroll:hover {
 
   .header {
 	  //background: url(image_path('bg.jpg')) no-repeat center center scroll;
-    background-image: url(image_path('bg.jpg'));
+    background-image: url(asset_path('bg.jpg'));
   }
 
   .callout {
 	  //background: url(image_path('callout.jpg')) no-repeat center center scroll;
-    background-image: url(image_path('callout.jpg'));
+    background-image: url(asset_path('callout.jpg'));
   }
 
   .map {
