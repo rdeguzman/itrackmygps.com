@@ -125,11 +125,13 @@ i.scroll:hover {
 @media (max-width: 768px) {
 
   .header {
-	background: url(image_path('bg.jpg')) no-repeat center center scroll;
+	  //background: url(image_path('bg.jpg')) no-repeat center center scroll;
+    background-image: url(image_path('bg.jpg'));
   }
 
   .callout {
-	background: url(image_path('callout.jpg')) no-repeat center center scroll;
+	  //background: url(image_path('callout.jpg')) no-repeat center center scroll;
+    background-image: url(image_path('callout.jpg'));
   }
 
   .map {
