@@ -1,5 +1,7 @@
 default_run_options[:pty] = true
 
+load 'deploy/assets'
+
 set :application, 'trackble'
 set :rvm_ruby_string, 'ruby-1.9.3-p362@trackble'
 set :rvm_type, :user
