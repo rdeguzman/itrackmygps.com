@@ -61,10 +61,15 @@ namespace :deploy do
 
   task :restart do
     run "ln -s /srv/rails/#{application}/shared/rvmrc /srv/rails/#{application}/current/.rvmrc"
-    run "ln -s /srv/rails/#{application}/shared/database.yml /srv/rails/#{application}/current/config/database.yml"
     run "ln -s /srv/rails/#{application}/shared/config.yml /srv/rails/#{application}/current/config/config.yml"
 
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+
+  task :link_db do
+    run "ln -s #{shared_path}/database.yml #{latest_release}/config/database.yml"
+  end
+
+  before "deploy:assets:precompile", "deploy:link_db"
 
 end
