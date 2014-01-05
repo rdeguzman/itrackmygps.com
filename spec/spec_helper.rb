@@ -47,9 +47,6 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.fail_fast = true
 
-  #https://github.com/plataformatec/devise/wiki/How-To:-Controllers-tests-with-Rails-3-(and-rspec)
-  config.include Devise::TestHelpers, :type => :controller
-
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
   end
