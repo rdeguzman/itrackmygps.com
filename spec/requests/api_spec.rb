@@ -4,8 +4,8 @@ describe 'API' do
 
   it 'registers' do
     u = {
-      :name => 'rupert',
-      :email => 'rupert@2rmobile.com',
+      :username => 'rndguzmanjr',
+      :email => 'rndguzmanjr@gmail.com',
       :password => 'password',
       :password_confirmation => 'password'
     }
@@ -15,6 +15,7 @@ describe 'API' do
     expect(response).to be_success
     json = JSON.parse(response.body)
 
+    json['username'].should == u[:username]
     json['email'].should == u[:email]
   end
 

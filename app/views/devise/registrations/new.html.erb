@@ -17,8 +17,9 @@
 
               <%= display_base_errors resource %>
 
-              <%= f.input :name,
+              <%= f.input :username,
                           :autofocus => true,
+                          :required => true,
                           :input_html => {:class => "input-xxlarge"},
                           :label_html => { :class => "col-sm-5"},
                           :right_column_html => {:class => "col-sm-7"} %>
