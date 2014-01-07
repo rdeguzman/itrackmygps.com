@@ -1,14 +1,76 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
-  <%= f.error_notification %>
-  <%= display_base_errors resource %>
-  <%= f.input :username, :autofocus => true %>
-  <%= f.input :email, :required => true %>
-  <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-  <%= f.input :password_confirmation, :required => false %>
-  <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-  <%= f.button :submit, 'Update', :class => 'btn-primary' %>
-<% end %>
-<h3>Cancel my account</h3>
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-<%= link_to "Back", :back %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-3 col-md-6">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3>Edit <%= resource_name.to_s.humanize %></h3>
+          </div>
+
+          <div class="panel-body">
+
+            <%= simple_form_for(resource,
+                                :as => resource_name,
+                                :url => registration_path(resource_name),
+                                :html => {:method => :put, :class => 'form-horizontal' }) do |f| %>
+
+              <%= f.error_notification %>
+
+              <%= display_base_errors resource %>
+
+              <%= f.input :username,
+                          :autofocus => true,
+                          :required => true,
+                          :disabled => true,
+                          :input_html => {:class => "input-xxlarge"},
+                          :label_html => { :class => "col-sm-5"},
+                          :right_column_html => {:class => "col-sm-7"} %>
+
+              <%= f.input :email,
+                          :required => true,
+                          :label_html => { :class => "col-sm-5"},
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :right_column_html => {:class => "col-sm-7"} %>
+
+              <%= f.input :password,
+                          :required => false,
+                          :autocomplete => "off",
+                          :hint => "Leave blank if you don't want to change it",
+                          :hint_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :label_html => { :class => "col-sm-5"},
+                          :right_column_html => {:class => "col-sm-7"} %>
+
+              <%= f.input :password_confirmation,
+                          :required => false,
+                          :label_html => { :class => "col-sm-5"},
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :right_column_html => {:class => "col-sm-7"} %>
+
+              <%= f.input :current_password,
+                          :hint => "Specify current password to confirm your changes",
+                          :required => true,
+                          :hint_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :label_html => { :class => "col-sm-5"},
+                          :right_column_html => {:class => "col-sm-7"} %>
+
+              <div class="form-group">
+                <div class="col-sm-offset-5 col-sm-7">
+                  <%= f.button :submit, 'Update', :class => 'btn-primary' %>
+                </div>
+              </div>
+
+              <hr/>
+
+              <h3>Cancel my account</h3>
+              <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+
+            <% end %>
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
