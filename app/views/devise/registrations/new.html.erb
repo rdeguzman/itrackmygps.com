@@ -21,21 +21,27 @@
                           :autofocus => true,
                           :required => true,
                           :input_html => {:class => "input-xxlarge"},
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
                           :label_html => { :class => "col-sm-5"},
                           :right_column_html => {:class => "col-sm-7"} %>
 
               <%= f.input :email,
                           :required => true,
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
                           :label_html => { :class => "col-sm-5"},
                           :right_column_html => {:class => "col-sm-7"} %>
 
               <%= f.input :password,
                           :required => true,
+                          :hint => "Minimum of 8 characters",
+                          :hint_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
                           :label_html => { :class => "col-sm-5"},
                           :right_column_html => {:class => "col-sm-7"} %>
 
               <%= f.input :password_confirmation,
                           :required => true,
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
                           :label_html => { :class => "col-sm-5"},
                           :right_column_html => {:class => "col-sm-7"} %>
 
