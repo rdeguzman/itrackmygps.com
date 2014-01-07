@@ -11,6 +11,12 @@ img {
   font-size: inherit;
   }
 
+//override form-horizontal, form-group
+.form-horizontal .form-group {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
 // to make views framework-neutral
