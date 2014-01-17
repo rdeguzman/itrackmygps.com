@@ -11,13 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117140544) do
+ActiveRecord::Schema.define(version: 20140117142046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "devices", force: true do |t|
+    t.integer  "user_id"
+    t.string   "uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "locations", force: true do |t|
-    t.string   "device_id",                             null: false
+    t.string   "uuid",                                  null: false
     t.integer  "gps_timestamp", limit: 8, default: 0,   null: false
     t.float    "gps_latitude",            default: 0.0, null: false
     t.float    "gps_longitude",           default: 0.0, null: false
@@ -37,13 +44,6 @@ ActiveRecord::Schema.define(version: 20140117140544) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
-
-  create_table "user_devices", force: true do |t|
-    t.integer  "user_id"
-    t.string   "device_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
