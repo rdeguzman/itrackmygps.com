@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'API' do
 
-  it 'registers' do
+  it 'sign up' do
     u = {
       :username => 'rndguzmanjr',
       :email => 'rndguzmanjr@gmail.com',

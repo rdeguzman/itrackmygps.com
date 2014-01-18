@@ -3,7 +3,10 @@ Trackble::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users
 
+  resources :devices
+
   namespace :api do
     devise_for :users, :only => :registrations
   end
+
 end

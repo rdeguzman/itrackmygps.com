@@ -3,18 +3,26 @@ require 'spec_helper'
 describe 'Home Page' do
   include_context 'login'
 
-  it 'should have "Login" and "Sign Up" links' do
-    visit root_path
-    page.should have_link "Login"
-    page.should have_link "Sign Up"
+  context 'not logged in' do
+    it 'should have "Login" and "Sign Up" links' do
+      visit root_path
+      page.should have_link "Login"
+      page.should have_link "Sign Up"
+    end
   end
 
-  it 'should have "Logout" and "Edit Account" links' do
-    login_user
+  context 'logged in' do
+    it 'should have "Logout", "Edit Account", "Devices" links' do
+      login_user
 
-    page.should have_link "Logout"
-    page.should have_link "Edit account"
+      page.should have_link "Logout"
+      page.should have_link "Edit account"
+      page.should have_link "Devices"
 
-    logout
+      logout
+    end
+
+
   end
+
 end
