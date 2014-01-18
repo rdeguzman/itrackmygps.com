@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :device do
+    sequence(:uuid) { |n| "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx#{n}" }
   end
 end

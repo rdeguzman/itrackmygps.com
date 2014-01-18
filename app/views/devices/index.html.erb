@@ -1,0 +1,27 @@
+<div class="container">
+  <h3>Devices</h3>
+  <table class="table table-condensed table-striped table-bordered" id="devices">
+    <thead>
+      <tr>
+        <th>UUID</th>
+        <th>Created</th>
+        <th>Updated</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @devices.each do |device| %>
+      <tr>
+        <td><%= device.uuid %></td>
+        <td><%= device.created_at.to_date %></td>
+        <td><%= device.updated_at.to_date %></td>
+        <td><%= link_to("Delete",
+                        device_path(device),
+                        :data => { :confirm => "Are you sure?" },
+                        :method => :delete,
+                        :class => 'btn btn-mini') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
