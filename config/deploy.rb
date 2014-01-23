@@ -68,6 +68,7 @@ namespace :deploy do
 
   task :link_db do
     run "ln -s #{shared_path}/database.yml #{latest_release}/config/database.yml"
+    run "ln -s #{shared_path}/config.yml #{latest_release}/config/config.yml"
   end
 
   before "deploy:assets:precompile", "deploy:link_db"
