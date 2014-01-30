@@ -15,11 +15,15 @@ class Api::RegistrationsController <  Api::BaseController
         d.save
       end
 
-      render :json=> { :username => user.username,
+      render :json=> { :valid => true,
+                       :username => user.username,
                        :email => user.email,
                        :device_id => d.id }, :status=>201
     else
-      render :json=> user.errors
+
+      error_messages = user.errors.full_messages.join(". ")
+      render :json=> { :valid => false,
+                       :errors => error_messages }
     end
   end
 

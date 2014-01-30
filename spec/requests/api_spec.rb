@@ -21,13 +21,45 @@ describe 'API' do
     devices = Device.where(:user_id => user_id, :uuid => uuid)
     device = devices.empty? ? nil : devices.first
 
+    json.has_key?("valid").should == true
     json.has_key?("username").should == true
     json.has_key?("email").should == true
     json.has_key?("device_id").should == true
 
+    json['valid'].should == true
     json['username'].should == u[:username]
     json['email'].should == u[:email]
     json['device_id'].should == device.id
+  end
+
+  it 'email already taken' do
+    uuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx-2'
+    u = {
+      :username => 'rndguzmanjr',
+      :email => 'rndguzmanjr@gmail.com',
+      :password => 'password',
+      :password_confirmation => 'password'
+    }
+
+    user = User.new(u)
+    user.save
+
+    d = Device.new
+    d.user_id = user.id
+    d.uuid = uuid
+    d.save
+
+    post api_user_registration_path, :user => u, :uuid => uuid
+
+    expect(response).to be_success
+    json = JSON.parse(response.body)
+    #puts json
+
+    json.has_key?("valid").should == true
+    json.has_key?("errors").should == true
+
+    json['valid'].should == false
+    json['errors'].should == 'Email has already been taken'
   end
 
 end
