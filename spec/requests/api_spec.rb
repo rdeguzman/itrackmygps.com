@@ -59,7 +59,7 @@ describe 'API' do
     json.has_key?("errors").should == true
 
     json['valid'].should == false
-    json['errors'].should == 'Email has already been taken'
+    json['errors'].should == 'Username has already been taken'
   end
 
 end
