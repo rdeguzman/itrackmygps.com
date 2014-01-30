@@ -6,14 +6,17 @@ class Api::RegistrationsController <  Api::BaseController
     user = User.new(p)
     if user.save
 
-      devices = Device.where(:uuid => params[:uuid], :user_id => user.id)
+      devices = Device.where(:uuid => params[:uuid])
 
       if devices.empty?
         d = Device.new
         d.uuid = params[:uuid]
-        d.user_id = user.id
-        d.save
+      else
+        d = devices.first
       end
+
+      d.user_id = user.id
+      d.save
 
       render :json=> { :valid => true,
                        :username => user.username,
