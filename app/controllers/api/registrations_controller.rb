@@ -5,11 +5,21 @@ class Api::RegistrationsController <  Api::BaseController
     p = params.require(:user).permit(:username, :email, :password, :password_confirmation)
     user = User.new(p)
     if user.save
-      render :json=> { :username => user.username, :email => user.email }, :status=>201
-      return
+
+      devices = Device.where(:uuid => params[:uuid], :user_id => user.id)
+
+      if devices.empty?
+        d = Device.new
+        d.uuid = params[:uuid]
+        d.user_id = user.id
+        d.save
+      end
+
+      render :json=> { :username => user.username,
+                       :email => user.email,
+                       :device_id => d.id }, :status=>201
     else
-      warden.custom_failure!
-      render :json=> user.errors, :status=>422
+      render :json=> user.errors
     end
   end
 
