@@ -3,22 +3,23 @@ require 'spec_helper'
 describe 'API' do
 
   context 'registration' do
+    user_params = {
+      :username => 'rndguzmanjr',
+      :email => 'rndguzmanjr@gmail.com',
+      :password => 'password',
+      :password_confirmation => 'password'
+    }
+
+    let(:user) { user_params }
+    let(:uuid) {'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx-1'}
 
     it 'sign up' do
-      uuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx-1'
-      u = {
-        :username => 'rndguzmanjr',
-        :email => 'rndguzmanjr@gmail.com',
-        :password => 'password',
-        :password_confirmation => 'password'
-      }
-
-      post api_user_registration_path, :user => u, :uuid => uuid
+      post api_user_registration_path, :user => user, :uuid => uuid
 
       expect(response).to be_success
       json = JSON.parse(response.body)
 
-      users = User.where(:username => u[:username])
+      users = User.where(:username => user[:username])
       user_id = users.empty? ? nil : users.first.id
       devices = Device.where(:user_id => user_id, :uuid => uuid)
       device = devices.empty? ? nil : devices.first
@@ -29,29 +30,19 @@ describe 'API' do
       json.has_key?("device_id").should == true
 
       json['valid'].should == true
-      json['username'].should == u[:username]
-      json['email'].should == u[:email]
+      json['username'].should == user[:username]
+      json['email'].should == user[:email]
       json['device_id'].should == device.id
     end
 
     it 'email already taken' do
-      uuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx-2'
-      u = {
-        :username => 'rndguzmanjr',
-        :email => 'rndguzmanjr@gmail.com',
-        :password => 'password',
-        :password_confirmation => 'password'
-      }
+      u = FactoryGirl.create(:user)
 
-      user = User.new(u)
-      user.save
-
-      d = Device.new
-      d.user_id = user.id
-      d.uuid = uuid
+      d = FactoryGirl.build(:device)
+      d.user_id = u.id
       d.save
 
-      post api_user_registration_path, :user => u, :uuid => uuid
+      post api_user_registration_path, :user => user, :uuid => uuid
 
       expect(response).to be_success
       json = JSON.parse(response.body)
