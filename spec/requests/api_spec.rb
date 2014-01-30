@@ -62,9 +62,34 @@ describe 'API' do
     it 'login' do
       post api_user_session_path, :username => user.username, :password => user.password
       expect(response).to be_success
+
+      json = JSON.parse(response.body)
+      json.has_key?("valid").should == true
+      json['valid'].should == true
+    end
+
+    it 'invalid username' do
+      post api_user_session_path, :username => "unknown_user", :password => "invalid_password"
+      expect(response).to be_success
+
+      json = JSON.parse(response.body)
+      json.has_key?("valid").should == true
+      json.has_key?("errors").should == true
+      json['valid'].should == false
+      json['errors'].should == "Username does not exist."
+    end
+
+    it 'invalid password' do
+      post api_user_session_path, :username => user.username, :password => "invalid_password"
+      expect(response).to be_success
+
+      json = JSON.parse(response.body)
+      json.has_key?("valid").should == true
+      json.has_key?("errors").should == true
+      json['valid'].should == false
+      json['errors'].should == "Invalid password."
     end
 
   end
-
 
 end
