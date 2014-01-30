@@ -4,7 +4,7 @@ describe User do
 
   before(:each) do
     @attr = {
-      :username => "Bob Marley",
+      :username => "BobMarley",
       :email => "rndguzmanjr@gmail.com",
       :password => "password",
       :password_confirmation => "password"
@@ -13,6 +13,19 @@ describe User do
 
   it "should create a new instance given a valid attribute" do
     User.create!(@attr)
+  end
+
+  it "should require minimum username length" do
+    u = User.new(@attr.merge(:username => "a"))
+    u.should_not be_valid
+  end
+
+  it "should require a username with valid format" do
+    u1 = User.new(@attr.merge(:username => "abc123!"))
+    u1.should_not be_valid
+
+    u2 = User.new(@attr.merge(:username => "abc 123"))
+    u2.should_not be_valid
   end
 
   it "should require an email address" do

@@ -10,8 +10,10 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates_format_of :email, :with => Devise::email_regexp
 
-  validates :username, presence: true
+  validates :username, presence: true, :length => {:within => 6..128}
   validates :username, uniqueness: true, if: -> { self.username.present? }
+  #only allow nny word character (letter, number, underscore)
+  validates_format_of :username, :with => /\A[\w]*\z/
 
   validates :password, presence: true, confirmation: true, :length => {:within => 8..128}
 end
