@@ -7,7 +7,7 @@ Trackble::Application.routes.draw do
   get "current" => "mapper#current", :as => :current_map
 
   namespace :api do
-    devise_for :users, :only => :registrations
+    devise_for :users, :only => [:registrations, :sessions]
   end
 
 end
