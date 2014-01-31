@@ -10,7 +10,7 @@ class Api::SessionsController < Api::BaseController
       if user.valid_password?(params[:password]) and not params[:uuid].nil?
         device = find_and_save_device(user.id, params[:uuid])
 
-        render :json => { :valid => true }
+        render :json => { :valid => true, :email => user.email }
       else
         render :json => { :valid => false, :errors => "Invalid password." }
       end

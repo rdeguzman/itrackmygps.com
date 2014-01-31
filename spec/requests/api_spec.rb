@@ -69,6 +69,9 @@ describe 'API' do
       json = JSON.parse(response.body)
       json.has_key?("valid").should == true
       json['valid'].should == true
+
+      json.has_key?("email").should == true
+      json['email'].should == user.email
     end
 
     it 'invalid username' do
