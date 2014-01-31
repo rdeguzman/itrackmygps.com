@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'API' do
+  let(:uuid) {'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx-1'}
 
   context 'registration' do
     user_params = {
@@ -11,7 +12,6 @@ describe 'API' do
     }
 
     let(:user) { user_params }
-    let(:uuid) {'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx-1'}
 
     it 'sign up' do
       post api_user_registration_path, :user => user, :uuid => uuid
@@ -60,7 +60,10 @@ describe 'API' do
     let(:user) { FactoryGirl.create :user }
 
     it 'login' do
-      post api_user_session_path, :username => user.username, :password => user.password
+      post api_user_session_path, :username => user.username,
+                                  :password => user.password,
+                                  :uuid => uuid
+
       expect(response).to be_success
 
       json = JSON.parse(response.body)
@@ -69,7 +72,10 @@ describe 'API' do
     end
 
     it 'invalid username' do
-      post api_user_session_path, :username => "unknown_user", :password => "invalid_password"
+      post api_user_session_path, :username => "unknown_user",
+                                  :password => "invalid_password",
+                                  :uuid => uuid
+
       expect(response).to be_success
 
       json = JSON.parse(response.body)
@@ -80,7 +86,10 @@ describe 'API' do
     end
 
     it 'invalid password' do
-      post api_user_session_path, :username => user.username, :password => "invalid_password"
+      post api_user_session_path, :username => user.username,
+                                  :password => "invalid_password",
+                                  :uuid => uuid
+
       expect(response).to be_success
 
       json = JSON.parse(response.body)
