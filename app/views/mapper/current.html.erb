@@ -124,6 +124,11 @@
   function initSocket(){
     socket = io.connect(socket_url);
 
+    socket.on('connect', function () {
+        // Identify this socket with the user_id
+        socket.emit('setUserId', <%= current_user.id %>);
+    });
+
     socket.on('message', function(d){
       var parsedObj = JSON.parse(d);
       if(parsedObj.type === 'gps'){
