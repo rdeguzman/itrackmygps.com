@@ -5,6 +5,12 @@ class MapperController < ApplicationController
   end
 
   def access
+    if params[:u].blank?
+      redirect_to :restricted
+    end
+  end
+
+  def restricted
 
   end
 
