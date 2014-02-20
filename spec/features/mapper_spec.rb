@@ -11,6 +11,10 @@ describe 'Map' do
       page.should have_link "Sign Up"
     end
 
+    it 'should display a form on /access' do
+      visit map_access_path
+      page.should have_field "PIN"
+    end
   end
 
 end
