@@ -112,7 +112,7 @@
 
     socket.on('connect', function () {
         // Identify this socket with the user_id
-        socket.emit('setUserId', <%= current_user.id %>);
+        socket.emit('setUserId', <%= @user_id %>);
     });
 
     socket.on('message', function(d){

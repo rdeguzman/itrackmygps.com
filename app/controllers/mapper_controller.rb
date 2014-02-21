@@ -2,6 +2,7 @@ class MapperController < ApplicationController
   before_filter :authenticate_user!, :only => :current
 
   def current
+    @user_id = current_user.id
   end
 
   def access
