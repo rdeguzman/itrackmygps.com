@@ -6,7 +6,7 @@ Trackble::Application.routes.draw do
   resources :devices
   get "current" => "mapper#current", :as => :current_map
   get "access" => "mapper#access", :as => :map_access
-  get "live" => "mapper#live", :as => :map_live
+  post "live" => "mapper#live", :as => :map_live
   get "restricted" => "mapper#restricted"
 
   namespace :api do

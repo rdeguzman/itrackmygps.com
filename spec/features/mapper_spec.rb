@@ -25,6 +25,12 @@ describe 'Map' do
       visit map_access_path(:u => user.username)
       page.should have_field "PIN"
     end
+
+    it 'redirect to /restricted if pin supplied is incorrect' do
+      visit map_access_path(:u => user.username)
+      fill_in 'PIN', :with => '1234'
+      click_button 'Submit'
+    end
   end
 
 end

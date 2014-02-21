@@ -20,4 +20,18 @@ class MapperController < ApplicationController
 
   end
 
+  def live
+    @username = params[:user][:username]
+    users = User.where(:username => @username)
+    if users.empty?
+      redirect_to :restricted
+    else
+      user = users.first
+      if user.pin != params[:user][:username]
+        flash[:error] = "Incorrect pin"
+        render :access, :u => @username
+      end
+    end
+  end
+
 end
