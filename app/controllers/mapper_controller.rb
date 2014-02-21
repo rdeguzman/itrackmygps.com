@@ -7,6 +7,8 @@ class MapperController < ApplicationController
   def access
     if params[:u].blank?
       redirect_to :restricted
+    else
+      @username = params[:u]
     end
   end
 

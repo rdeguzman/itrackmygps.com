@@ -12,6 +12,10 @@
                                 :url => map_live_path,
                                 :html => {:class => 'form-horizontal' }) do |f| %>
 
+              <%= f.input :username,
+                          :as => :hidden,
+                          :input_html => { :value => @username } %>
+
               <%= f.input :pin,
                           :autofocus => true,
                           :label => "PIN",
