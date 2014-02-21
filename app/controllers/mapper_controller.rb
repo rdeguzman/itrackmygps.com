@@ -22,17 +22,40 @@ class MapperController < ApplicationController
   end
 
   def live
-    @username = params[:user][:username]
+    p = params.require(:user).permit(:username, :pin)
+
+    @username = p[:username]
     users = User.where(:username => @username)
     if users.empty?
       redirect_to :restricted
     else
-      user = users.first
-      if user.pin != params[:user][:username]
-        flash[:error] = "Incorrect pin"
+
+      if is_pin_valid?(p[:pin])
+
+        user = users.first
+        if user.pin != p[:pin]
+          flash[:error] = "Incorrect Pin"
+          render :access, :u => @username
+        else
+          @user_id = user.id
+          render :current
+        end
+
+      else
+        flash[:error] = "Invalid Pin"
         render :access, :u => @username
       end
+
     end
   end
+
+  private
+    def is_pin_valid?(pin)
+      if pin.length != 4
+        return false
+      else
+        return /\A\d+\z/ === pin
+      end
+    end
 
 end

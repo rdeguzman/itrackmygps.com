@@ -26,11 +26,36 @@ describe 'Map' do
       page.should have_field "PIN"
     end
 
-    it 'redirect to /restricted if pin supplied is incorrect' do
+    context 'invalid pin' do
+      before(:each) do
+        visit map_access_path(:u => user.username)
+      end
+
+      after(:each) do
+        click_button 'Submit'
+        page.should have_content "Invalid Pin"
+      end
+
+      it 'incorrect pin if not numeric' do
+        fill_in 'PIN', :with => 'abcd'
+      end
+
+      it 'incorrect pin if more than 4 digits' do
+        fill_in 'PIN', :with => '12345'
+      end
+
+      it 'incorrect pin if has special character' do
+        fill_in 'PIN', :with => '123.0'
+      end
+    end
+
+    it 'has correct pin' do
       visit map_access_path(:u => user.username)
       fill_in 'PIN', :with => '1234'
       click_button 'Submit'
+      page.should_not have_content "Incorrect Pin"
     end
+
   end
 
 end
