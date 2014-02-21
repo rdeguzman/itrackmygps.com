@@ -11,8 +11,13 @@ describe 'Map' do
       page.should have_link "Sign Up"
     end
 
-    it 'check for username on /access' do
+    it 'redirect to /restricted if no username supplied on /access' do
       visit map_access_path
+      page.should have_content "You are not allowed to access this page directly."
+    end
+
+    it 'redirect to /restricted if username supplied on /access does not exist' do
+      visit map_access_path(:u => "foobar")
       page.should have_content "You are not allowed to access this page directly."
     end
 

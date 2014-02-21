@@ -9,6 +9,10 @@ class MapperController < ApplicationController
       redirect_to :restricted
     else
       @username = params[:u]
+      users = User.where(:username => @username)
+      if users.empty?
+        redirect_to :restricted
+      end
     end
   end
 
