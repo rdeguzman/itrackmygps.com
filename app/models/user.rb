@@ -16,4 +16,18 @@ class User < ActiveRecord::Base
   validates_format_of :username, :with => /\A[\w]*\z/
 
   validates :password, presence: true, confirmation: true, :length => {:within => 8..128}
+
+  validate :pin_length, :pin_numeric
+
+    def pin_length
+      if pin and pin.length != 4
+        errors.add(:pin, "must be 4 digits")
+      end
+    end
+
+    def pin_numeric
+      if pin and (pin =~ /\A\d+\z/).nil?
+        errors.add(:pin, "must be 4 numeric characters only")
+      end
+    end
 end

@@ -7,7 +7,8 @@ describe User do
       :username => "BobMarley",
       :email => "rndguzmanjr@gmail.com",
       :password => "password",
-      :password_confirmation => "password"
+      :password_confirmation => "password",
+      :pin => "1234"
     }
   end
 

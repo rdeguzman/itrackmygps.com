@@ -2,7 +2,7 @@ class Api::RegistrationsController <  Api::BaseController
   respond_to :json
 
   def create
-    p = params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    p = params.require(:user).permit(:username, :email, :password, :password_confirmation, :pin)
     user = User.new(p)
     if user.save
       device = find_and_save_device(user.id, params[:uuid])

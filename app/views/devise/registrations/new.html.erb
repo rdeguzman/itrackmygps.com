@@ -45,6 +45,14 @@
                           :label_html => { :class => "col-sm-5"},
                           :right_column_html => {:class => "col-sm-7"} %>
 
+              <%= f.input :pin,
+                          :required => true,
+                          :hint => "Minimum of 4 digits",
+                          :hint_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :error_html => { :class => "col-sm-offset-5 col-sm-7"},
+                          :label_html => { :class => "col-sm-5"},
+                          :right_column_html => {:class => "col-sm-7"} %>
+
               <div class="form-group">
                 <div class="col-sm-offset-5 col-sm-7">
                   <%= f.button :submit, 'Sign Up', :class => 'btn-primary' %>

@@ -8,7 +8,8 @@ describe 'API' do
       :username => 'rndguzmanjr',
       :email => 'rndguzmanjr@gmail.com',
       :password => 'password',
-      :password_confirmation => 'password'
+      :password_confirmation => 'password',
+      :pin => '1234'
     }
 
     let(:user) { user_params }
@@ -23,6 +24,8 @@ describe 'API' do
       user_id = users.empty? ? nil : users.first.id
       devices = Device.where(:user_id => user_id, :uuid => uuid)
       device = devices.empty? ? nil : devices.first
+
+      users.first.pin.should == user[:pin]
 
       json.has_key?("valid").should == true
       json.has_key?("username").should == true
