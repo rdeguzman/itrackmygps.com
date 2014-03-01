@@ -1,10 +1,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-4" id="messages">
-      GPS<br/>
-    </div>
-
+    <div class="col-md-4" id="messages"></div>
     <div class="col-md-8" id="mapdiv"></div>
   </div>
 
@@ -100,7 +97,7 @@
   }
 
   function formatGPSHTMLOutput(gps){
-    var s = gps.device_id + ' ';
+    var s = '';
     s += gps.gps_timestamp + ' ';
     s += '(' + gps.gps_latitude + ',' + gps.gps_longitude + ')';
     s += '<br/>';
@@ -119,7 +116,7 @@
       var parsedObj = JSON.parse(d);
       if(parsedObj.type === 'gps'){
         var gps = parsedObj.data;
-        $('#messages').append(formatGPSHTMLOutput(gps));
+        $('#messages').html(formatGPSHTMLOutput(gps));
         processGPS(gps);
       }
     });
