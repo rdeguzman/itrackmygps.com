@@ -75,6 +75,9 @@ describe 'API' do
 
       json.has_key?("email").should == true
       json['email'].should == user.email
+
+      json.has_key?("pin").should == true
+      json['pin'].should == user.pin
     end
 
     it 'invalid username' do
