@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-4" id="messages"></div>
+    <div class="col-md-4" id="messages">GPS</div>
     <div class="col-md-8" id="mapdiv"></div>
   </div>
 
@@ -97,10 +97,12 @@
   }
 
   function formatGPSHTMLOutput(gps){
-    var s = '';
-    s += gps.gps_timestamp + ' ';
+    var unix_timestamp = gps.gps_timestamp;
+    var date = new Date(unix_timestamp);
+    var formattedTime = date.toLocaleString();
+
+    var s =  unix_timestamp + ' ' + formattedTime + ' ';
     s += '(' + gps.gps_latitude + ',' + gps.gps_longitude + ')';
-    s += '<br/>';
     return s;
   }
 
