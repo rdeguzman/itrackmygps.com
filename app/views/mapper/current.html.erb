@@ -98,7 +98,7 @@
 
   function formatGPSHTMLOutput(gps){
     var unix_timestamp = gps.gps_timestamp;
-    var date = new Date(unix_timestamp);
+    var date = new Date(unix_timestamp*1);
     var formattedTime = date.toLocaleString();
 
     var s =  unix_timestamp + ' ' + formattedTime + ' ';
