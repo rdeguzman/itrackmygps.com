@@ -1,1 +1,21 @@
-#messages{ font-size: x-small;}
+html, body, .container {
+  height: 100%;
+}
+
+body{
+  background: asset-url("bg_city.jpg") no-repeat center center fixed;
+}
+
+#messages_container {
+  padding: 10px;
+}
+
+#mapdiv {
+  width: 100%;
+  height: 90%;
+  margin-top: -20px;
+}
+/* fixes blurry google maps control with bootstrap */
+#mapdiv img {
+  max-width: none;
+}

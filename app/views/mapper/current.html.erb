@@ -1,14 +1,19 @@
-<div class="container">
+<% content_for :head do %>
+  <script type="text/javascript" src="<%= APP_CONFIG[:google_maps_url] %>"></script>
+  <script type="text/javascript" src="<%= APP_CONFIG[:socket_io_url] %>"></script>
+<% end %>
 
-  <div class="row">
-    <div class="col-md-4" id="messages">GPS</div>
-    <div class="col-md-8" id="mapdiv"></div>
+<div class="container">
+  <div class="alert-info lead" id="messages_container">
+    Last known Location: <span id="messages"></span>
   </div>
 
+  <div id="mapdiv"></div>
 </div>
 
 <script language="JavaScript">
-  var socket_host = "node.itrackmygps.com";
+//  var socket_host = "node.itrackmygps.com";
+  var socket_host = '<%= APP_CONFIG[:tracking_server] %>'
   var socket_port = 8080;
   var socket_url  = 'http://' + socket_host + ':' + socket_port;
   var http_url = 'http://' + socket_host;
@@ -101,7 +106,7 @@
     var date = new Date(unix_timestamp*1);
     var formattedTime = date.toLocaleString();
 
-    var s =  unix_timestamp + ' ' + formattedTime + ' ';
+    var s =  formattedTime + ' ';
     s += '(' + gps.gps_latitude + ',' + gps.gps_longitude + ')';
     return s;
   }
