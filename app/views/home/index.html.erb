@@ -20,25 +20,7 @@
     <div id="step1" class="step1">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-md-offset-3 text-center">
-            <h2>Step 1: Grab the App</h2>
-            <p class="lead">It's <em>free</em> to download from Google Play and Apple Store.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 col-md-offset-3 text-center">
-            <div class="well">
-              <b>Android</b>
-              <p>Download the apk</p>
-            </div>
-          </div>
-          <div class="col-md-3 text-center">
-            <div class="well">
-              <b>iOS</b>
-              <p>Coming this Feb 2014</p>
-            </div>
-          </div>
-
+          <%= image_tag("screenshot.jpg") %>
         </div>
       </div>
     </div>
@@ -49,30 +31,23 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-md-offset-3 text-center">
-            <h2>Step 2: Turn it ON</h2>
-            <p class="lead">Simple Register or Sign Up and start tracking.</p>
+            <h2>Download</h2>
+            <p class="lead">It's <em>free</em> to download from Google Play and Apple Store.</p>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-2 col-md-offset-3 text-center">
+          <div class="col-md-3 col-md-offset-3 text-center">
             <div class="step2-item">
               <i class="service-icon fa fa-magnet"></i>
-              <h4>Enable GPS</h4>
-              <p>Enable GPS on your mobile device.</p>
+              <h4>Android</h4>
+              <p>Download the apk</p>
             </div>
           </div>
-          <div class="col-md-2 text-center">
+          <div class="col-md-3 text-center">
             <div class="step2-item">
               <i class="service-icon fa fa-shield"></i>
-              <h4>Sign Up</h4>
-              <p>Choose a username so we can identify you on the map later for web viewers.</p>
-            </div>
-          </div>
-          <div class="col-md-2 text-center">
-            <div class="step2-item">
-              <i class="service-icon fa fa-pencil"></i>
-              <h4>Tracker ON</h4>
-              <p>Switch the tracker ON to start GPS logging.</p>
+              <h4>Apple iOS</h4>
+              <p>Coming Soon!</p>
             </div>
           </div>
         </div>
@@ -84,17 +59,38 @@
     <div id="step3" class="step3">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-md-offset-3 text-center">
-            <h2>Step 3: Control MapView Access</h2>
+
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2 text-center">
+            <%= image_tag("sms.jpg") %>
+            <h2>Share your location</h2>
             <p class="lead">
-              Send a link to your viewers so they can <em>securely</em> see your
-              location updates on the map.
+              Sends an SMS to your viewer so they can access your map.
+            </p>
+          </div>
+          <div class="col-md-4 text-center">
+            <%= image_tag("pin.jpg") %>
+            <h2>Secure Access</h2>
+            <p class="lead">
+              Only allow authorize access for your privacy. Similar to ATMs, protect your location with a pin.
+            </p>
+          </div>
+          <div class="row">
+            <%= image_tag("viewers.jpg") %>
+          </div>
+          <div class="col-md-6 col-md-offset-3 text-center">
+            <h2>Accessible Anywhere</h2>
+            <p class="lead">
+              Accessible both from the web and mobile. Anywhere in the planet as long as you have internet.
             </p>
           </div>
         </div>
       </div>
     </div>
     <!-- /Step3 -->
+
+
 
     <!-- Call to Action -->
     <div class="call-to-action">
@@ -104,15 +100,17 @@
             <h3>Want to know more?!</h3>
             <p class="lead">
               I won't spam you. Enter your email address below to get important updates
-              and <em>be notified</em> when I launch.
+              and <em>be notified.</em>
             </p>
 
-            <form class="form-inline" role="form">
+            <form action="http://itrackmygps.us3.list-manage.com/subscribe/post?u=b0380acc3567c51c7f52f997c&amp;id=fba8f82f34" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline validate" target="_blank" novalidate>
               <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                <input type="email" class="form-control" id="mce-EMAIL" name="EMAIL" placeholder="Enter email">
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;"><input type="text" name="b_b0380acc3567c51c7f52f997c_fba8f82f34" value=""></div>
               </div>
-              <button type="submit" class="btn btn-md btn-info">Notify Me!</button>
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-md btn-info">
             </form>
 
             <h3></h3>
@@ -126,6 +124,8 @@
         </div>
       </div>
     </div>
+
+
     <!-- /Call to Action -->
 
     <!-- Footer -->
