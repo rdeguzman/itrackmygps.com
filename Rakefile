@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Trackble::Application.load_tasks
+Itrackmygps::Application.load_tasks

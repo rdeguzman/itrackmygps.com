@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Trackble::Application.config.secret_key_base = '4be2b13416af3dc99af29db4fe1b43a9ffc681ff2ad9b1477a7c253f802751212a76dcb70ab3f488307044d7014e150e23e0a52a5146f8d0330bf8612a2abdfb'
+Itrackmygps::Application.config.secret_key_base = '4be2b13416af3dc99af29db4fe1b43a9ffc681ff2ad9b1477a7c253f802751212a76dcb70ab3f488307044d7014e150e23e0a52a5146f8d0330bf8612a2abdfb'
