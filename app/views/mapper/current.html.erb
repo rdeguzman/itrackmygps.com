@@ -110,6 +110,24 @@
     return s;
   }
 
+  function fetchLastKnownDeviceLocation(){
+    var url = socket_url  + '/devices?user_id=' + <%= @user_id %>;
+    $.get(url, function( data ) {
+      for(var i=0;i < data.length;i++){
+        var gps = data[i];
+        if(gps.gps_latitude != 0 && gps.gps_longitude != 0){
+          device = createDevice(data[i]);
+          devices.push(device);
+
+          $('#messages').html(formatGPSHTMLOutput(gps));
+        }
+      }
+
+      fitAllDevicesOnMap();
+
+    });
+  }
+
   function initSocket(){
     socket = io.connect(socket_url);
 
@@ -131,5 +149,6 @@
   $(document).ready(function(){
     initMap();
     initSocket();
+    fetchLastKnownDeviceLocation();
   });
 </script>
