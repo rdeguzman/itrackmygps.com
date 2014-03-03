@@ -64,7 +64,21 @@ class MapperController < ApplicationController
       uuids = []
       devices = Device.where(:user_id => user_id)
       devices.each do |device|
-        uuids.push(device.uuid)
+        data = {}
+        locations = Location.where(:uuid => device.uuid).order("created_at DESC").limit(1)
+
+        data[:uuid] = device.uuid
+
+        if(locations.size > 0)
+          location = locations.first
+          data[:gps_latitude] = location.gps_latitude
+          data[:gps_longitude] = location.gps_longitude
+          data[:gps_timestamp] = location.gps_timestamp
+          data[:gps_speed] = location.gps_speed
+          data[:gps_heading] = location.gps_heading
+        end
+
+        uuids.push(data)
       end
 
       return uuids

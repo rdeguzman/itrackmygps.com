@@ -111,22 +111,21 @@
   }
 
   function fetchLastKnownDeviceLocation(){
-    var url = socket_url  + '/devices?user_id=' + <%= @user_id %>;
-    $.get(url, function( data ) {
-      for(var i=0;i < data.length;i++){
-        var gps = data[i];
-        if(gps.gps_latitude != 0 && gps.gps_longitude != 0){
-          device = createDevice(data[i]);
-          devices.push(device);
+    var data = <%= @devices.to_json.html_safe %>;
 
-          $('#messages').html(formatGPSHTMLOutput(gps));
-        }
+    for(var i=0;i < data.length;i++){
+      var gps = data[i];
+      if(gps.gps_latitude != 0 && gps.gps_longitude != 0){
+        device = createDevice(data[i]);
+        devices.push(device);
+
+        $('#messages').html(formatGPSHTMLOutput(gps));
       }
+    }
 
-      fitAllDevicesOnMap();
-
-    });
+    fitAllDevicesOnMap();
   }
+
 
   function initSocket(){
     socket = io.connect(socket_url);
@@ -136,7 +135,7 @@
       socket.emit('setUserId', <%= @user_id %>);
 
       <% @devices.each do |device| %>
-        socket.emit('addDevice', '<%= device %>');
+        socket.emit('addDevice', '<%= device[:uuid] %>');
       <% end %>
     });
 
@@ -153,6 +152,6 @@
   $(document).ready(function(){
     initMap();
     initSocket();
-    //fetchLastKnownDeviceLocation();
+    fetchLastKnownDeviceLocation();
   });
 </script>
