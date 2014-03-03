@@ -3,6 +3,7 @@ class MapperController < ApplicationController
 
   def current
     @user_id = current_user.id
+    @devices = get_devices(@user_id)
   end
 
   def access
@@ -38,6 +39,7 @@ class MapperController < ApplicationController
           render :access, :u => @username
         else
           @user_id = user.id
+          @devices = get_devices(@user_id)
           render :current
         end
 
@@ -56,6 +58,16 @@ class MapperController < ApplicationController
       else
         return /\A\d+\z/ === pin
       end
+    end
+
+    def get_devices(user_id)
+      uuids = []
+      devices = Device.where(:user_id => user_id)
+      devices.each do |device|
+        uuids.push(device.uuid)
+      end
+
+      return uuids
     end
 
 end

@@ -133,7 +133,11 @@
 
     socket.on('connect', function () {
         // Identify this socket with the user_id
-        socket.emit('setUserId', <%= @user_id %>);
+      socket.emit('setUserId', <%= @user_id %>);
+
+      <% @devices.each do |device| %>
+        socket.emit('addDevice', '<%= device %>');
+      <% end %>
     });
 
     socket.on('message', function(d){
