@@ -82,3 +82,6 @@ pickle-email-*.html
 /config/application.yml
 
 *.backup
+
+# Ignore apk in downloads 
+public/downloads/*.apk
