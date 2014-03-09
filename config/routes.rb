@@ -9,6 +9,8 @@ Itrackmygps::Application.routes.draw do
   post "live" => "mapper#live", :as => :map_live
   get "restricted" => "mapper#restricted"
 
+  get "privacy" => "home#privacy"
+
   namespace :api do
     #devise_for :users, :only => [:registrations, :sessions]
 
