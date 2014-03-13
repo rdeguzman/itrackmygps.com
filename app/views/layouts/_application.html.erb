@@ -8,10 +8,10 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "itrackmygps.com" %></title>
 
-    <%= yield :head %>
-
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= javascript_include_tag "application" %>
+
+    <%= yield :head %>
 
     <%= stylesheet_link_tag params[:controller] if Itrackmygps::Application.assets.find_asset("#{params[:controller]}.css") %>
     <%= javascript_include_tag params[:controller] if Itrackmygps::Application.assets.find_asset("#{params[:controller]}.js") %>
