@@ -12,17 +12,10 @@
 </div>
 
 <script language="JavaScript">
-  var socket_host = '<%= APP_CONFIG[:tracking_server] %>'
-  var socket_port = 8080;
-  var socket_url  = 'http://' + socket_host + ':' + socket_port;
-  var http_url = 'http://' + socket_host;
-  var socket;
-
   var map, devices_bounds;
   var devices = [];
 
   function initMap(){
-    //var myLatlng = new google.maps.LatLng(-25.363882,131.044922); //Australia
     var myLatlng = new google.maps.LatLng(0,0);
 
     var mapOptions = {
@@ -110,9 +103,7 @@
     return s;
   }
 
-  function fetchLastKnownDeviceLocation(){
-    var data = <%= @devices.to_json.html_safe %>;
-
+  function fetchLastKnownDeviceLocation(data){
     for(var i=0;i < data.length;i++){
       var gps = data[i];
       if(gps.gps_latitude != 0 && gps.gps_longitude != 0){
@@ -126,17 +117,17 @@
     fitAllDevicesOnMap();
   }
 
-
-  function initSocket(){
-    socket = io.connect(socket_url);
+  function initSocket(socket_url, user_id, data){
+    var socket = io.connect(socket_url);
 
     socket.on('connect', function () {
         // Identify this socket with the user_id
-      socket.emit('setUserId', <%= @user_id %>);
+      socket.emit('setUserId', user_id);
 
-      <% @devices.each do |device| %>
-        socket.emit('addDevice', '<%= device[:uuid] %>');
-      <% end %>
+      for(var i=0;i < data.length;i++){
+        socket.emit('addDevice', data[i].uuid);
+      }
+
     });
 
     socket.on('message', function(d){
@@ -150,8 +141,13 @@
   }
 
   $(document).ready(function(){
+    var socket_host = '<%= APP_CONFIG[:tracking_server] %>'
+    var socket_port = 8080;
+    var socket_url  = 'http://' + socket_host + ':' + socket_port;
+    var devices_data = <%= @devices.to_json.html_safe %>;
+
     initMap();
-    initSocket();
-    fetchLastKnownDeviceLocation();
+    initSocket(socket_url, <%= @user_id %>, devices_data);
+    fetchLastKnownDeviceLocation(devices_data);
   });
 </script>
