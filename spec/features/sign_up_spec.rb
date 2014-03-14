@@ -34,6 +34,7 @@ describe 'Sign Up Page' do
     users = User.where(:username => username)
     user = users.first
     user.pin.should == pin
+    user.access_token.should_not be_nil
   end
 
 end

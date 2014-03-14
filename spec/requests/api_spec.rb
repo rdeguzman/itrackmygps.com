@@ -21,11 +21,13 @@ describe 'API' do
       json = JSON.parse(response.body)
 
       users = User.where(:username => user[:username])
-      user_id = users.empty? ? nil : users.first.id
+      current_user = users.first
+      user_id = users.empty? ? nil : current_user.id
       devices = Device.where(:user_id => user_id, :uuid => uuid)
       device = devices.empty? ? nil : devices.first
 
-      users.first.pin.should == user[:pin]
+      current_user.pin.should == user[:pin]
+      current_user.access_token.should_not be_nil
 
       json.has_key?("valid").should == true
       json.has_key?("username").should == true
