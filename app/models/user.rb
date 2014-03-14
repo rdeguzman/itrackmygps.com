@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  before_create :generate_access_token
+
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -19,15 +21,19 @@ class User < ActiveRecord::Base
 
   validate :pin_length, :pin_numeric
 
-    def pin_length
-      if pin and pin.length != 4
-        errors.add(:pin, "must be 4 digits")
-      end
+  def pin_length
+    if pin and pin.length != 4
+      errors.add(:pin, "must be 4 digits")
     end
+  end
 
-    def pin_numeric
-      if pin and (pin =~ /\A\d+\z/).nil?
-        errors.add(:pin, "must be 4 numeric characters only")
-      end
+  def pin_numeric
+    if pin and (pin =~ /\A\d+\z/).nil?
+      errors.add(:pin, "must be 4 numeric characters only")
     end
+  end
+
+  def generate_access_token
+    self.access_token = SecureRandom.hex
+  end
 end
