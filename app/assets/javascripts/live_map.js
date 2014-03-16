@@ -44,9 +44,11 @@ function processGPS(gps){
 
 function createDevice(gps){
   var pos = getLatLngFromString(gps);
+  var image = 'marker.png';
   var marker = new google.maps.Marker({
     position: pos,
-    map: map
+    map: map,
+    icon:image
   });
 
   marker.set("device_id", gps.device_id);
