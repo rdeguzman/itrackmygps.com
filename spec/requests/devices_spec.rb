@@ -10,7 +10,7 @@ describe 'API' do
 
 
   it 'gets /devices with access_token' do
-    get devices_path, :user_id => user.id, :access_token => access_token, :format => :json
+    get api_devices_path, :user_id => user.id, :access_token => access_token, :format => :json
 
     expect(response).to be_success
     json = JSON.parse(response.body)
@@ -28,7 +28,7 @@ describe 'API' do
   end
 
   it 'gets /devices with no or invalid access_token' do
-    get devices_path, :user_id => user.id, :access_token => '', :format => :json
+    get api_devices_path, :user_id => user.id, :access_token => '', :format => :json
 
     expect(response).to be_success
     json = JSON.parse(response.body)

@@ -1,5 +1,10 @@
 var map, devices_bounds;
 var devices = [];
+var socket_url = '';
+
+function initSocketURL(url){
+  socket_url = url;
+}
 
 function initMap(){
   var myLatlng = new google.maps.LatLng(0,0);
@@ -103,7 +108,7 @@ function fetchLastKnownDeviceLocation(data){
   fitAllDevicesOnMap();
 }
 
-function initSocket(socket_url, user_id, data){
+function initSocket(user_id, data){
   var socket = io.connect(socket_url);
 
   socket.on('connect', function () {
@@ -122,6 +127,19 @@ function initSocket(socket_url, user_id, data){
       var gps = parsedObj.data;
       $('#messages').html(formatGPSHTMLOutput(gps));
       processGPS(gps);
+    }
+  });
+}
+
+function fetchDevices(user_id, access_token){
+  var url = '/api/devices.json?user_id=' + user_id + '&access_token=' + access_token;
+  var allowed_devices = [];
+  $.get(url, function( data ) {
+
+    if(data.valid){
+      allowed_devices = data.devices;
+      fetchLastKnownDeviceLocation(allowed_devices);
+      initSocket(user_id, allowed_devices);
     }
   });
 }

@@ -18,10 +18,9 @@
     var socket_host = '<%= APP_CONFIG[:tracking_server] %>'
     var socket_port = 8080;
     var socket_url  = 'http://' + socket_host + ':' + socket_port;
-    var devices_data = <%= @devices.to_json.html_safe %>;
 
+    initSocketURL(socket_url);
     initMap();
-    initSocket(socket_url, <%= @user_id %>, devices_data);
-    fetchLastKnownDeviceLocation(devices_data);
+    fetchDevices(<%= @user_id %>, '<%= @access_token %>');
   });
 </script>

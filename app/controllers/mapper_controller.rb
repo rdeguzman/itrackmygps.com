@@ -3,7 +3,7 @@ class MapperController < ApplicationController
 
   def current
     @user_id = current_user.id
-    @devices = get_devices(@user_id)
+    @access_token = current_user.access_token
   end
 
   def access
@@ -39,7 +39,7 @@ class MapperController < ApplicationController
           render :access, :u => @username
         else
           @user_id = user.id
-          @devices = get_devices(@user_id)
+          @access_token = user.access_token
           render :current
         end
 
@@ -58,30 +58,6 @@ class MapperController < ApplicationController
       else
         return /\A\d+\z/ === pin
       end
-    end
-
-    def get_devices(user_id)
-      uuids = []
-      devices = Device.where(:user_id => user_id)
-      devices.each do |device|
-        data = {}
-        locations = Location.where(:uuid => device.uuid).order("created_at DESC").limit(1)
-
-        data[:uuid] = device.uuid
-
-        if(locations.size > 0)
-          location = locations.first
-          data[:gps_latitude] = location.gps_latitude
-          data[:gps_longitude] = location.gps_longitude
-          data[:gps_timestamp] = location.gps_timestamp
-          data[:gps_speed] = location.gps_speed
-          data[:gps_heading] = location.gps_heading
-        end
-
-        uuids.push(data)
-      end
-
-      return uuids
     end
 
 end
