@@ -93,7 +93,7 @@ describe 'API' do
       json.has_key?("valid").should == true
       json.has_key?("errors").should == true
       json['valid'].should == false
-      json['errors'].should == "Username does not exist."
+      json['errors'].should == "Sorry, but the username does not exist. Please REGISTER first."
     end
 
     it 'invalid password' do
