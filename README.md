@@ -1,4 +1,4 @@
-trackble
+itrackmygps.com
 ========
 
 Rails4 backend for GPS Tracking
