@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140314050631) do
+ActiveRecord::Schema.define(version: 20140509224158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,14 +24,17 @@ ActiveRecord::Schema.define(version: 20140314050631) do
   end
 
   create_table "locations", force: true do |t|
-    t.string   "uuid",                                  null: false
-    t.integer  "gps_timestamp", limit: 8, default: 0,   null: false
-    t.float    "gps_latitude",            default: 0.0, null: false
-    t.float    "gps_longitude",           default: 0.0, null: false
+    t.string   "uuid",                                      null: false
+    t.integer  "gps_timestamp",     limit: 8, default: 0,   null: false
+    t.float    "gps_latitude",                default: 0.0, null: false
+    t.float    "gps_longitude",               default: 0.0, null: false
     t.float    "gps_speed"
     t.float    "gps_heading"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
+    t.integer  "time_interval",               default: -1
+    t.integer  "distance_interval",           default: -1
   end
 
   create_table "roles", force: true do |t|
