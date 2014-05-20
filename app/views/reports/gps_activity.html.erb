@@ -1,0 +1,13 @@
+<%= form_tag location_history_path, :method => 'get' do %>
+
+  <label for="devices"> Devices: </label>
+
+  <%= select_tag "Devices",
+                 options_from_collection_for_select(@devices, "id", "uuid"),
+                 {:include_blank => false,
+                  :multiple => false } %>
+
+  <%= submit_tag 'Submit',
+               :class => 'button primary',
+               :data => { :disable_with => 'Text' } %>
+<% end %>
