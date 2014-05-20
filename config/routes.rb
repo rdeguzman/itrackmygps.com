@@ -10,6 +10,7 @@ Itrackmygps::Application.routes.draw do
   get 'restricted' => 'mapper#restricted'
 
   get 'privacy' => 'home#privacy'
+  get 'location_history' => 'reports#gps_activity', :as => :location_history
 
   namespace :api do
     #devise_for :users, :only => [:registrations, :sessions]

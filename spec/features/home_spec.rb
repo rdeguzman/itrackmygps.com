@@ -12,12 +12,13 @@ describe 'Home Page' do
   end
 
   context 'logged in' do
-    it 'should have "Logout", "Edit Account", "Devices" links' do
+    it 'should have "Logout", "Edit Account", "Devices", "Location History" links' do
       login_user
 
       page.should have_link "Logout"
       page.should have_link "Edit account"
       page.should have_link "Devices"
+      page.should have_link "Location History"
 
       logout
     end
