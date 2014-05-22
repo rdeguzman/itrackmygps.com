@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <script type="text/javascript" src="<%= APP_CONFIG[:google_maps_url] %>"></script>
+<% end %>
+
+
 <div class="row">
   <div class="col-md-4">
     <%= form_tag location_history_path, :method => 'get' do %>
