@@ -1,4 +1,4 @@
-var map, marker_bounds, markers = [];
+var map, markers_bounds, markers = [];
 
 function initMap(){
   var myLatlng = new google.maps.LatLng(0,0);
@@ -9,7 +9,7 @@ function initMap(){
   };
 
   map = new google.maps.Map(document.getElementById('mapdiv'), mapOptions);
-  marker_bounds = new google.maps.LatLngBounds();
+  markers_bounds = new google.maps.LatLngBounds();
 }
 
 function fitAllMarkersOnMap(){
@@ -18,4 +18,58 @@ function fitAllMarkersOnMap(){
     markers_bounds.extend(pos);
     map.fitBounds(markers_bounds);
   }
+}
+
+function createMarkers(data){
+
+  for(var i = 0; i < data.length; i++){
+    var location = data[i];
+    var latitude = location["gps_latitude"];
+    var longitude = location["gps_longitude"];
+
+    var latlng = new google.maps.LatLng(latitude,longitude);
+    var heading = location["gps_heading"];
+    var azimuth = heading + 180;
+
+    var speed = location["gps_speed"];
+
+    var unix_timestamp = location["gps_timestamp"];
+    var date = new Date(unix_timestamp*1);
+    var formattedTime = date.toLocaleString();
+
+    var title = formattedTime + " " +  speed + " kph";
+
+    if(speed > 0){
+      var icon = {
+        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        strokeColor: 'yellow',
+        strokeWeight: 1,
+        fillColor: 'green',
+        fillOpacity: 1,
+        scale: 4,
+        rotation: azimuth
+      };
+    }
+    else {
+      var icon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        strokeColor: 'white',
+        strokeWeight: 1,
+        fillColor: 'green',
+        fillOpacity: 1,
+        scale: 6
+      };
+    }
+
+    var marker = new google.maps.Marker({
+      position: latlng,
+      title: title,
+      icon: icon,
+      map: map
+    });
+
+    markers_bounds.extend(latlng);
+    map.fitBounds(markers_bounds);
+  }
+
 }
