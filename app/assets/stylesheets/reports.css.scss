@@ -1,0 +1,29 @@
+html,body{
+  height:100%;
+}
+
+#main, #main>.row {
+	height:100%;
+}
+
+#main>.row {
+  overflow-y:scroll;
+}
+
+#left {
+	height:100%;
+}
+
+#mapdiv {
+	width:70%;
+  height: 100%;
+  position:absolute;
+  right:16px;
+  top:50px;
+  bottom:0;
+  overflow:hidden;
+}
+
+#mapdiv img {
+  max-width: none;
+}
