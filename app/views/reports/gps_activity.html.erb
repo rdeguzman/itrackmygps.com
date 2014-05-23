@@ -9,7 +9,6 @@
 <div class="container-fluid" id="main">
   <div class="row">
   	<div class="col-xs-4" id="left">
-
       <%= form_tag location_history_path, :method => 'get' do %>
 
         <label for="devices"> Devices: </label>
@@ -33,5 +32,6 @@
 <script language="JavaScript">
   $(document).ready(function(){
     initMap();
+    createMarkers(<%= @locations.to_json.html_safe %>);
   });
 </script>
