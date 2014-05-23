@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
     if !@devices.blank?
       device = @devices.first
 
-      @locations = Location.where(:uuid => device.uuid).limit(100)
+      @locations = Location.where(:uuid => device.uuid).order('created_at desc').limit(100)
     else
       @locations = []
     end
