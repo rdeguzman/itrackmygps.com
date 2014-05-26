@@ -8,15 +8,22 @@
 
           <div class="panel-body">
 
-            <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+            <%= simple_form_for(resource,
+                                :as => resource_name,
+                                :url => password_path(resource_name),
+                                :html => { :method => :post, :class => 'form-horizontal' }) do |f| %>
 
               <%= devise_error_messages! %>
 
-              <div><%= f.label :email %><br />
+              <%= f.input :email,
+                          :label_html => {:class => "col-sm-4"},
+                          :right_column_html => {:class => "col-sm-8 col-xs-12"} %>
 
-              <%= f.email_field :email, :autofocus => true %></div>
-
-              <div><%= f.submit "Send me reset password instructions" %></div>
+              <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                  <%= f.button :submit, 'Send me reset password instructions', :class => 'btn-primary' %>
+                </div>
+              </div>
 
             <% end %>
 
