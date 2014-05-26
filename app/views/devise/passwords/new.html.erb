@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-8 col-md-6">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <span class="glyphicon glyphicon-lock"></span> Forgot your Password?
+          </div>
+
+          <div class="panel-body">
+
+            <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+
+              <%= devise_error_messages! %>
+
+              <div><%= f.label :email %><br />
+
+              <%= f.email_field :email, :autofocus => true %></div>
+
+              <div><%= f.submit "Send me reset password instructions" %></div>
+
+            <% end %>
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
