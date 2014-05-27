@@ -1,6 +1,8 @@
 <% content_for :head do %>
   <script type="text/javascript" src="<%= APP_CONFIG[:google_maps_url] %>"></script>
 
+  <%= stylesheet_link_tag "bootstrap-datepicker" %>
+  <%= javascript_include_tag "bootstrap-datetimepicker" %>
   <%= javascript_include_tag "location_history_map" %>
 <% end %>
 
