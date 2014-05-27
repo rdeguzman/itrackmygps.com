@@ -70,15 +70,28 @@
 
 <script language="JavaScript">
   $(document).ready(function(){
-    $("#datetimepickerFrom").datetimepicker({ format: 'YYYY-MM-DD hh:mm:00', language: 'en' });
-    $("#datetimepickerTo").datetimepicker({ format: 'YYYY-MM-DD hh:mm:00', language: 'en' });
+    var date_format = "YYYY-MM-DD HH:mm:00";
+    var date_begin = moment().format('<%= params[:date_from].blank? ? "YYYY-MM-DD 08:00:00" : params[:date_from] %>');
+    var date_end = moment().format('<%= params[:date_to].blank? ? "YYYY-MM-DD 18:00:00" : params[:date_to] %>');
+
+    $("#datetimepickerFrom").datetimepicker({
+      format: date_format,
+      language: 'en',
+      defaultDate: date_begin
+
+    });
+    $("#datetimepickerTo").datetimepicker({
+      format: date_format,
+      language: 'en',
+      defaultDate: date_end
+    });
 
     $("#datetimepickerFrom").on("dp.change",function (e) {
-      $('#date_from').val(e.date.unix());
+      $('#date_from').val(e.date.format(date_format));
     });
 
     $("#datetimepickerTo").on("dp.change",function (e) {
-       $('#date_to').val(e.date.unix());
+       $('#date_to').val(e.date.format(date_format));
     });
 
     initMap();
