@@ -69,11 +69,17 @@
 </div>
 
 <script language="JavaScript">
-
-
   $(document).ready(function(){
     $("#datetimepickerFrom").datetimepicker({ format: 'YYYY-MM-DD hh:mm:00', language: 'en' });
     $("#datetimepickerTo").datetimepicker({ format: 'YYYY-MM-DD hh:mm:00', language: 'en' });
+
+    $("#datetimepickerFrom").on("dp.change",function (e) {
+      $('#date_from').val(e.date.unix());
+    });
+
+    $("#datetimepickerTo").on("dp.change",function (e) {
+       $('#date_to').val(e.date.unix());
+    });
 
     initMap();
     createMarkers(<%= @locations.to_json.html_safe %>);
