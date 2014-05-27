@@ -9,8 +9,10 @@ describe 'Location History Page' do
     click_link "Location History"
 
     page.should have_select "Devices"
-    #page.should have_field "From"
-    #page.should have_field "To"
+
+    page.should have_css('#date_from')
+    page.should have_css('#date_to')
+
     page.should have_button "Submit"
 
     #save_and_open_page

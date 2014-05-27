@@ -14,6 +14,9 @@
 
       <%= form_tag location_history_path, :method => 'get', :class => 'form-horizontal' do %>
 
+        <%= hidden_field_tag :date_from %>
+        <%= hidden_field_tag :date_to %>
+
         <div class="form-group">
           <label for="devices" class="col-sm-2 control-label">Devices</label>
           <div class="col-sm-10">
@@ -28,9 +31,10 @@
           <div class="col-sm-10">
 
             <div class='input-group date' id='datetimepickerFrom'>
-                <input type='text' data-format="dd/MM/yyyy hh:mm:ss" class="form-control" />
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                </span>
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
             </div>
 
           </div>
@@ -41,9 +45,10 @@
           <div class="col-sm-10">
 
             <div class='input-group date' id='datetimepickerTo'>
-                <input type='text' data-format="dd/MM/yyyy hh:mm:ss" class="form-control" />
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                </span>
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
             </div>
 
           </div>
