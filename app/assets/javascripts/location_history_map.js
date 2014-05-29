@@ -24,6 +24,7 @@ function createMarkers(data){
 
   for(var i = 0; i < data.length; i++){
     var location = data[i];
+
     var latitude = location["gps_latitude"];
     var longitude = location["gps_longitude"];
 
@@ -32,6 +33,7 @@ function createMarkers(data){
     var azimuth = heading + 180;
 
     var speed = location["gps_speed"];
+    var provider = location["provider"];
 
     var unix_timestamp = location["gps_timestamp"];
     var date = new Date(unix_timestamp*1);
@@ -39,7 +41,7 @@ function createMarkers(data){
 
     var title = formattedTime + " " +  speed + " kph";
 
-    if(speed > 0){
+    if(speed >= 0 && provider == "gps"){
       var icon = {
         path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
         strokeColor: 'yellow',
@@ -55,7 +57,7 @@ function createMarkers(data){
         path: google.maps.SymbolPath.CIRCLE,
         strokeColor: 'white',
         strokeWeight: 1,
-        fillColor: 'green',
+        fillColor: 'red',
         fillOpacity: 1,
         scale: 6
       };
