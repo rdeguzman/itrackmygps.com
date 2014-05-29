@@ -78,7 +78,16 @@
             <% @locations.each do |gps| %>
             <tr>
               <td><%= gps.id %></td>
-              <td><%= gps.gps_timestamp %></td>
+
+              <%= content_tag :td, :id => "#{gps.id}_timestamp" do %>
+
+                <script>
+                  var dt = moment(<%= gps.gps_timestamp %>).format("YYYY-MM-DD hh:mm:ss A")
+                  $("#<%= gps.id %>_timestamp").html(dt);
+                </script>
+
+              <% end %>
+
               <td><%= "#{gps.gps_latitude} #{gps.gps_longitude}" %></td>
               <td><%= gps.gps_speed %></td>
               <td><%= gps.provider %></td>
