@@ -59,7 +59,35 @@
             <button type="submit" class="btn btn-default">Submit</button>
           </div>
         </div>
+
       <% end %>
+
+      <div class="table_frame" style="margin-left: 20px; width; 100%;">
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>LonLat</th>
+              <th>Speed</th>
+              <th>Provider</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @locations.each do |gps| %>
+            <tr>
+              <td><%= gps.id %></td>
+              <td><%= gps.gps_timestamp %></td>
+              <td><%= "#{gps.gps_latitude} #{gps.gps_longitude}" %></td>
+              <td><%= gps.gps_speed %></td>
+              <td><%= gps.provider %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
 
     </div>
 
