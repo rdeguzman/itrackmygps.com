@@ -12,13 +12,14 @@ class ReportsController < ApplicationController
       if params[:date_from].blank? or params[:date_to].blank?
         @locations = Location.where(:uuid => device.uuid).order('created_at desc').limit(100)
       else
-
+        @locations = Location.where('uuid = ? AND gps_timestamp >= ? AND gps_timestamp <= ?',
+                                    device.uuid,
+                                    params[:date_from],
+                                    params[:date_to])
       end
     else
       @locations = []
     end
   end
-
-
 
 end
