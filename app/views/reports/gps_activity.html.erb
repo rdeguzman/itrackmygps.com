@@ -105,42 +105,42 @@
 
 <script language="JavaScript">
   $(document).ready(function(){
+    var date_format = "YYYY-MM-DD HH:mm:ss";
 
     <% if params[:date_from].blank? %>
-      var date_begin = moment(<%= @locations.last.gps_timestamp %>).format("YYYY-MM-DD HH:mm:ss");
+      var date_begin = moment(<%= @locations.last.gps_timestamp %>).format(date_format);
     <% else %>
-      var date_begin = moment().format('<%= params[:date_from] %>');
+      var date_begin = moment(<%= params[:date_from] %>);
     <% end %>
 
     <% if params[:date_to].blank? %>
-      var date_to = moment(<%= @locations.first.gps_timestamp %>).format("YYYY-MM-DD HH:mm:ss");
+      var date_to = moment(<%= @locations.first.gps_timestamp %>).format(date_format);
     <% else %>
-      var date_to = moment().format('<%= params[:date_to] %>');
+      var date_to = moment(<%= params[:date_to] %>);
     <% end %>
 
-    var default_begin_date = moment().format(date_begin);
-    var default_end_date = moment().format(date_to);
-
-    var date_format = "YYYY-MM-DD HH:mm:00";
+    // initialize hidden date_fields with timestamps
+    $('#date_from').val(moment(date_begin).valueOf());
+    $('#date_to').val(moment(date_to).valueOf());
 
     $("#datetimepickerFrom").datetimepicker({
       format: date_format,
       language: 'en',
-      defaultDate: default_begin_date
+      defaultDate: date_begin
 
     });
     $("#datetimepickerTo").datetimepicker({
       format: date_format,
       language: 'en',
-      defaultDate: default_end_date
+      defaultDate: date_to
     });
 
     $("#datetimepickerFrom").on("dp.change",function (e) {
-      $('#date_from').val(e.date.format(date_format));
+      $('#date_from').val(moment(e.date).valueOf());
     });
 
     $("#datetimepickerTo").on("dp.change",function (e) {
-       $('#date_to').val(e.date.format(date_format));
+      $('#date_to').val(moment(e.date).valueOf());
     });
 
     initMap();
