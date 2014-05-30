@@ -8,10 +8,17 @@ class ReportsController < ApplicationController
     if !@devices.blank?
       device = @devices.first
 
-      @locations = Location.where(:uuid => device.uuid).order('created_at desc').limit(100)
+      # If there are no dates provided, we provide the last known 100 records
+      if params[:date_from].blank? or params[:date_to].blank?
+        @locations = Location.where(:uuid => device.uuid).order('created_at desc').limit(100)
+      else
+
+      end
     else
       @locations = []
     end
   end
+
+
 
 end
