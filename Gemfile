@@ -13,6 +13,7 @@ gem 'pg'
 gem 'rolify'
 gem 'simple_form'
 gem 'momentjs-rails'
+gem 'will_paginate', '~> 3.0'
 
 group :development do
   gem 'better_errors'
