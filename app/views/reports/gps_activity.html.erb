@@ -111,13 +111,13 @@
     var date_format = "YYYY-MM-DD HH:mm:ss";
 
     <% if params[:date_from].blank? %>
-      var date_begin = moment(<%= @locations.last.gps_timestamp %>).format(date_format);
+      var date_begin = moment(<%= @first_timestamp %>).format(date_format);
     <% else %>
       var date_begin = moment(<%= params[:date_from] %>);
     <% end %>
 
     <% if params[:date_to].blank? %>
-      var date_to = moment(<%= @locations.first.gps_timestamp %>).format(date_format);
+      var date_to = moment(<%= @last_timestamp %>).format(date_format);
     <% else %>
       var date_to = moment(<%= params[:date_to] %>);
     <% end %>
