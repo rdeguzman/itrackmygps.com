@@ -12,60 +12,75 @@
   <div class="row">
   	<div class="col-xs-4 col-md-4" id="left">
 
-      <%= form_tag location_history_path, :method => 'get', :class => 'form-horizontal' do %>
+      <div class="panel panel-default adjust-panel">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Location History Filters</div>
 
-        <%= hidden_field_tag :date_from %>
-        <%= hidden_field_tag :date_to %>
+        <div class="panel-body">
+          <%= form_tag location_history_path, :method => 'get', :class => 'form-horizontal' do %>
 
-        <div class="form-group">
-          <label for="devices" class="col-sm-2 control-label">Devices</label>
-          <div class="col-sm-10">
-            <%= select_tag "Devices",
-                           options_from_collection_for_select(@devices, "id", "uuid"),
-                           {:include_blank => false, :multiple => false, :class => 'form-control' } %>
-          </div>
-        </div>
+            <%= hidden_field_tag :date_from %>
+            <%= hidden_field_tag :date_to %>
 
-        <div class="form-group">
-          <label for="devices" class="col-sm-2 control-label">From</label>
-          <div class="col-sm-10">
-
-            <div class='input-group date' id='datetimepickerFrom'>
-              <input type='text' class="form-control" />
-              <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </span>
+            <div class="form-group">
+              <label for="devices" class="col-sm-2 control-label">Devices</label>
+              <div class="col-sm-10">
+                <%= select_tag "Devices",
+                               options_from_collection_for_select(@devices, "id", "uuid"),
+                               {:include_blank => false, :multiple => false, :class => 'form-control' } %>
+              </div>
             </div>
 
-          </div>
-        </div>
+            <div class="form-group">
+              <label for="devices" class="col-sm-2 control-label">From</label>
+              <div class="col-sm-10">
 
-        <div class="form-group">
-          <label for="devices" class="col-sm-2 control-label">To</label>
-          <div class="col-sm-10">
+                <div class='input-group date' id='datetimepickerFrom'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
 
-            <div class='input-group date' id='datetimepickerTo'>
-              <input type='text' class="form-control" />
-              <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </span>
+              </div>
             </div>
 
-          </div>
+            <div class="form-group">
+              <label for="devices" class="col-sm-2 control-label">To</label>
+              <div class="col-sm-10">
+
+                <div class='input-group date' id='datetimepickerTo'>
+                  <input type='text' class="form-control" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+
+      <div class="panel panel-primary adjust-panel">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+          <%= page_entries_info @locations %>
         </div>
 
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
-          </div>
+        <div class="panel-body text-center">
+          <%= will_paginate @locations,
+                            :inner_window => 3,
+                            :class => 'paginated_links',
+                            :renderer => BootstrapPagination::Rails %>
         </div>
-
-      <% end %>
-
-      <div class="table_frame" style="margin-left: 20px; width: 100%;">
-
-        <%= page_entries_info @locations %><br/>
-        <%= will_paginate @locations %>
 
         <table class="table table-striped">
           <thead>
