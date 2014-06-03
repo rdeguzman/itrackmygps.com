@@ -92,7 +92,7 @@
             </tr>
           </thead>
           <tbody>
-            <% row_index = (params[:page].to_i - 1) * (params[:per_page] || 10) %>
+            <% row_index = params[:page].blank? ? 0 : (params[:page].to_i - 1) * (params[:per_page] || 10) %>
 
             <% @locations.each do |gps| %>
             <tr>
