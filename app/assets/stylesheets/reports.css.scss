@@ -11,8 +11,8 @@ html,body{
 }
 
 #left {
-	height:100%;
-  padding: 10px;
+	//height:100%;
+  //padding: 10px;
 }
 
 #mapdiv {
@@ -23,15 +23,11 @@ html,body{
   top:50px;
   bottom:0;
   overflow:hidden;
+  margin: 0px;
 }
 
 #mapdiv img {
   max-width: none;
-}
-
-.adjust-panel {
-  margin-left: 20px;
-  width: 100%;
 }
 
 .paginated_links {
