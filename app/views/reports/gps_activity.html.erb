@@ -92,9 +92,11 @@
             </tr>
           </thead>
           <tbody>
+            <% row_index = (params[:page].to_i - 1) * (params[:per_page] || 10) %>
+
             <% @locations.each do |gps| %>
             <tr>
-              <td><%= gps.id %></td>
+              <td><%= row_index = row_index + 1 %></td>
 
               <%= content_tag :td, :id => "#{gps.id}_timestamp" do %>
 
@@ -106,7 +108,7 @@
               <% end %>
 
               <td><%= "#{gps.gps_latitude} #{gps.gps_longitude}" %></td>
-              <td><%= gps.gps_speed %></td>
+              <td align="right"><%= number_with_precision(gps.gps_speed, precision: 0) %></td>
             </tr>
             <% end %>
           </tbody>

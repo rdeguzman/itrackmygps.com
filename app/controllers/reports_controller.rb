@@ -10,16 +10,23 @@ class ReportsController < ApplicationController
 
       # If there are no dates provided, we provide the last known 100 records
       if params[:date_from].blank? or params[:date_to].blank?
-        locations = Location.where(:uuid => device.uuid).order('created_at desc').limit(1000)
+        locations = Location.where(:uuid => device.uuid).order('created_at desc').limit(100)
         @first_timestamp = locations.last.gps_timestamp
         @last_timestamp = locations.first.gps_timestamp
 
-        @locations = Location.where("uuid = ? AND gps_timestamp >= ?", device.uuid, @first_timestamp).order('created_at asc').paginate(:page => params[:page])
+        @locations = Location.where("uuid = ? AND gps_timestamp >= ?",
+                                    device.uuid,
+                                    @first_timestamp).
+                                    order('created_at asc').
+                                    paginate(:page => params[:page],
+                                             :per_page => params[:per_page] || 10)
       else
         @locations = Location.where('uuid = ? AND gps_timestamp >= ? AND gps_timestamp <= ?',
                                     device.uuid,
                                     params[:date_from],
-                                    params[:date_to]).order('created_at asc').paginate(:page => params[:page])
+                                    params[:date_to]).order('created_at asc').
+                                    paginate(:page => params[:page],
+                                             :per_page => params[:per_page] || 10)
       end
     else
       @locations = []
