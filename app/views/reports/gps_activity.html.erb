@@ -78,6 +78,8 @@
         <div class="panel-body text-center">
           <%= will_paginate @locations,
                             :inner_window => 3,
+                            :previous_label => "<",
+                            :next_label => ">",
                             :class => 'paginated_links pagination-sm',
                             :renderer => BootstrapPagination::Rails %>
         </div>
