@@ -41,16 +41,23 @@ function createMarkers(data){
 
     var title = formattedTime + " " +  speed + " kph";
 
-    if(speed >= 0 && provider == "gps"){
+    if(provider == "gps"){
       var icon = {
-        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
         strokeColor: 'yellow',
         strokeWeight: 1,
         fillColor: 'green',
-        fillOpacity: 1,
-        scale: 4,
-        rotation: azimuth
+        fillOpacity: 1
       };
+
+      if(speed > 0) {
+        icon.path = google.maps.SymbolPath.BACKWARD_CLOSED_ARROW;
+        icon.scale = 4;
+        icon.rotation = azimuth;
+      }
+      else {
+        icon.path = google.maps.SymbolPath.CIRCLE;
+        icon.scale = 6;
+      }
     }
     else {
       var icon = {
