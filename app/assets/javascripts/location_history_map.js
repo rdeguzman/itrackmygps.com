@@ -12,14 +12,6 @@ function initMap(){
   markers_bounds = new google.maps.LatLngBounds();
 }
 
-function fitAllMarkersOnMap(){
-  for(var i = 0; i < markers.length; i++){
-    var pos = markers[i].getPosition();
-    markers_bounds.extend(pos);
-    map.fitBounds(markers_bounds);
-  }
-}
-
 function createMarkers(data){
 
   for(var i = 0; i < data.length; i++){
@@ -79,6 +71,8 @@ function createMarkers(data){
 
     markers_bounds.extend(latlng);
     map.fitBounds(markers_bounds);
+
+    markers.push(marker);
   }
 
 }
