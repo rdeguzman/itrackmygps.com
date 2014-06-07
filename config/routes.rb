@@ -2,6 +2,7 @@ Itrackmygps::Application.routes.draw do
   root :to => 'home#index'
   devise_for :users, :controllers => {:registrations => 'registrations'}
   resources :users
+  put 'change_role/:id', to: 'users#change_role', as: :change_role
 
   resources :devices
   get 'current' => 'mapper#current', :as => :current_map
