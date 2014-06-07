@@ -91,6 +91,11 @@
               <th>Date</th>
               <th>LonLat</th>
               <th>Speed</th>
+
+              <% if current_user.has_role? :admin %>
+                <th>Provider</th>
+              <% end %>
+
             </tr>
           </thead>
           <tbody>
@@ -111,6 +116,11 @@
 
               <td><%= "#{gps.gps_latitude} #{gps.gps_longitude}" %></td>
               <td align="right"><%= number_with_precision(gps.gps_speed, precision: 0) %></td>
+
+              <% if current_user.has_role? :admin %>
+                <td><%= gps.provider %></td>
+              <% end %>
+
             </tr>
             <% end %>
           </tbody>
