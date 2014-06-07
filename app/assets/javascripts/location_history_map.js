@@ -1,5 +1,20 @@
 var map, markers_bounds, markers = [];
 
+function maximizeMarker(id){
+  setMarkerSize(id, 8, 12);
+}
+
+function minimizeMarker(id){
+  setMarkerSize(id, 4, 6);
+}
+
+function setMarkerSize(id, min, max) {
+  var current_icon = markers[id].getIcon();
+  current_icon.scale = (current_icon.path == google.maps.SymbolPath.BACKWARD_CLOSED_ARROW) ? min : max;
+  markers[id].setIcon(current_icon);
+}
+
+
 function initMap(){
   var myLatlng = new google.maps.LatLng(0,0);
 

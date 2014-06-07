@@ -101,27 +101,33 @@
           <tbody>
             <% row_index = params[:page].blank? ? 0 : (params[:page].to_i - 1) * (params[:per_page] || APP_CONFIG[:per_page]) %>
 
+            <% marker_index = 0 %>
+
             <% @locations.each do |gps| %>
-            <tr>
-              <td><%= row_index = row_index + 1 %></td>
 
-              <%= content_tag :td, :id => "#{gps.id}_timestamp" do %>
+              <%= content_tag :tr, :id => marker_index, :class => "marker_rows" do %>
+                <% marker_index = marker_index + 1 %>
 
-                <script>
-                  var dt = moment(<%= gps.gps_timestamp %>).format("YYYY-MM-DD hh:mm:ss A")
-                  $("#<%= gps.id %>_timestamp").html(dt);
-                </script>
+                <td><%= row_index = row_index + 1 %></td>
+
+                <%= content_tag :td, :id => "#{gps.id}_timestamp" do %>
+
+                  <script>
+                    var dt = moment(<%= gps.gps_timestamp %>).format("YYYY-MM-DD hh:mm:ss A")
+                    $("#<%= gps.id %>_timestamp").html(dt);
+                  </script>
+
+                <% end %>
+
+                <td><%= "#{gps.gps_latitude} #{gps.gps_longitude}" %></td>
+                <td align="right"><%= number_with_precision(gps.gps_speed, precision: 0) %></td>
+
+                <% if current_user.has_role? :admin %>
+                  <td><%= gps.provider %></td>
+                <% end %>
 
               <% end %>
 
-              <td><%= "#{gps.gps_latitude} #{gps.gps_longitude}" %></td>
-              <td align="right"><%= number_with_precision(gps.gps_speed, precision: 0) %></td>
-
-              <% if current_user.has_role? :admin %>
-                <td><%= gps.provider %></td>
-              <% end %>
-
-            </tr>
             <% end %>
           </tbody>
         </table>
@@ -177,5 +183,17 @@
 
     initMap();
     createMarkers(<%= @locations.to_json.html_safe %>);
+
+    $("tr.marker_rows").hover(
+        function(){
+          var id = $(this).attr('id');
+          maximizeMarker(id);
+        },
+
+        function(){
+          var id = $(this).attr('id');
+          minimizeMarker(id);
+        }
+    );
   });
 </script>
