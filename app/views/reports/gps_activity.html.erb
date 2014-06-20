@@ -93,6 +93,7 @@
               <th>Speed</th>
 
               <% if current_user.has_role? :admin %>
+                <th>ID</th>
                 <th>Provider</th>
               <% end %>
 
@@ -123,6 +124,7 @@
                 <td align="right"><%= number_with_precision(gps.gps_speed, precision: 0) %></td>
 
                 <% if current_user.has_role? :admin %>
+                  <td><%= gps.id %></td>
                   <td><%= gps.provider %></td>
                 <% end %>
 
