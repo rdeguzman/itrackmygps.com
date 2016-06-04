@@ -6,6 +6,29 @@ function initSocketURL(url){
   socket_url = url;
 }
 
+function initSocket(user_id, data){
+  var socket = io.connect(socket_url);
+
+  socket.on('connect', function () {
+      // Identify this socket with the user_id
+    socket.emit('setUserId', user_id);
+
+    for(var i=0;i < data.length;i++){
+      socket.emit('addDevice', data[i].uuid);
+    }
+
+  });
+
+  socket.on('message', function(d){
+    var parsedObj = JSON.parse(d);
+    if(parsedObj.type === 'gps'){
+      var gps = parsedObj.data;
+      $('#messages').html(formatGPSHTMLOutput(gps));
+      processGPS(gps);
+    }
+  });
+}
+
 function initMap(){
   var myLatlng = new google.maps.LatLng(0,0);
 
@@ -16,6 +39,19 @@ function initMap(){
 
   map = new google.maps.Map(document.getElementById('mapdiv'), mapOptions);
   devices_bounds = new google.maps.LatLngBounds();
+}
+
+function fetchDevices(user_id, access_token){
+  var url = '/api/devices.json?user_id=' + user_id + '&access_token=' + access_token;
+  var allowed_devices = [];
+  $.get(url, function( data ) {
+
+    if(data.valid){
+      allowed_devices = data.devices;
+      fetchLastKnownDeviceLocation(allowed_devices);
+      initSocket(user_id, allowed_devices);
+    }
+  });
 }
 
 function getDevice(device_id, markers){
@@ -117,38 +153,3 @@ function fetchLastKnownDeviceLocation(data){
   fitAllDevicesOnMap();
 }
 
-function initSocket(user_id, data){
-  var socket = io.connect(socket_url);
-
-  socket.on('connect', function () {
-      // Identify this socket with the user_id
-    socket.emit('setUserId', user_id);
-
-    for(var i=0;i < data.length;i++){
-      socket.emit('addDevice', data[i].uuid);
-    }
-
-  });
-
-  socket.on('message', function(d){
-    var parsedObj = JSON.parse(d);
-    if(parsedObj.type === 'gps'){
-      var gps = parsedObj.data;
-      $('#messages').html(formatGPSHTMLOutput(gps));
-      processGPS(gps);
-    }
-  });
-}
-
-function fetchDevices(user_id, access_token){
-  var url = '/api/devices.json?user_id=' + user_id + '&access_token=' + access_token;
-  var allowed_devices = [];
-  $.get(url, function( data ) {
-
-    if(data.valid){
-      allowed_devices = data.devices;
-      fetchLastKnownDeviceLocation(allowed_devices);
-      initSocket(user_id, allowed_devices);
-    }
-  });
-}
