@@ -99,12 +99,19 @@ function formatGPSHTMLOutput(gps){
 function fetchLastKnownDeviceLocation(data){
   for(var i=0;i < data.length;i++){
     var gps = data[i];
-    if(gps.gps_latitude != 0 && gps.gps_longitude != 0){
-      device = createDevice(data[i]);
-      devices.push(device);
 
-      $('#messages').html(formatGPSHTMLOutput(gps));
+    // check for gps_latitude and gps_longitude or we get a call stack size error
+    if( typeof gps.latitude !== 'undefined'  && typeof gps.longitude !== 'undefined'){
+
+      if(gps.gps_latitude != 0 && gps.gps_longitude != 0){
+        device = createDevice(data[i]);
+        devices.push(device);
+
+        $('#messages').html(formatGPSHTMLOutput(gps));
+      }
+
     }
+
   }
 
   fitAllDevicesOnMap();
