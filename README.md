@@ -22,8 +22,11 @@ Rails4 backend for GPS Tracking
 
 ### Deployment
 
-Deployment via capistrano ```cap deploy```
-
 In production, if a gem is reported missing
 
 ```bundle install --gemfile /srv/rails/itrackmygps/releases/20140530222044/Gemfile --path /srv/rails/itrackmygps/shared/bundle --deployment --quiet --without development test```
+
+To Deploy. cap deploy will precompile assets on the remote server
+ 
+	% cap deploy
+	% sudo /etc/init.d/apache restart
