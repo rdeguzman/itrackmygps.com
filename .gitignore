@@ -16,6 +16,7 @@
 /vendor/ruby/
 
 # minimal Rails specific artifacts
+bin/
 db/*.sqlite3
 /db/*.sqlite3-journal
 /log/*
@@ -85,3 +86,5 @@ pickle-email-*.html
 
 # Ignore apk in downloads 
 public/downloads/*.apk
+
+docs
