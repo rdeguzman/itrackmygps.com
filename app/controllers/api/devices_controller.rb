@@ -25,13 +25,14 @@ class Api::DevicesController < Api::BaseController
       uuids = []
       devices = Device.where(:user_id => user_id)
       devices.each do |device|
-        data = {}
-        locations = Location.where(:uuid => device.uuid).order("created_at DESC").limit(1)
 
-        data[:uuid] = device.uuid
+        locations = Location.where(:uuid => device.uuid).order("created_at DESC").limit(1)
 
         if(locations.size > 0)
           location = locations.first
+
+          data = {}
+          data[:uuid] = device.uuid
           data[:user_id] = user_id
           data[:gps_latitude] = location.gps_latitude
           data[:gps_longitude] = location.gps_longitude
